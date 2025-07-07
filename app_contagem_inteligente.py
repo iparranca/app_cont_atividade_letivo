@@ -32,13 +32,13 @@ if uploaded_file:
         st.error(f"Erro ao ler o CSV: {e}")
         st.stop()
 
-    # Verificar se a primeira linha tem apenas uma coluna (mal separado)
+    # Verificar se a primeira linha tem apenas uma coluna (se não separaram com , ou ; assume um texto sendo uma coluna)
     if len(df.columns) == 1:
         st.error("O ficheiro CSV parece não estar separado corretamente. Verifica se escolheste o separador correto (vírgula ou ponto e vírgula).")
         st.stop()
 
     # Verificar se há cabeçalhos vazios
-    if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
+    if df.columns.isnull().any() or any(c.strip() == " " for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
@@ -53,7 +53,7 @@ if uploaded_file:
 
     restantes_colunas = df.columns[1:-1]  # Exclui data e AnoLetivo
 
-    st.write("### 👁️ Pré-visualização dos dados")
+    st.write("### Pré-visualização dos dados")
     st.dataframe(df)
 
     colunas_selecionadas = st.multiselect(
@@ -69,7 +69,7 @@ if uploaded_file:
     tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
     descricao = "Por " + " + ".join(colunas_selecionadas)
 
-    st.subheader(f"📋 Resultado da Contagem ({descricao})")
+    st.subheader(f"Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
 
     output = BytesIO()
