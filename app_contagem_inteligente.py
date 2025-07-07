@@ -4,11 +4,11 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
-st.title("Exportar Contagens2")
+st.title("Exportar Contagens")
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
-    options=[(",", "Vírgula (,)"), (";", "Ponto e Vírgula (;)")],
+    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)") ],
     format_func=lambda x: x[1]
 )[0]
 
@@ -28,6 +28,28 @@ if uploaded_file:
         # Tentar ler com o separador escolhido
         df = pd.read_csv(uploaded_file, sep=sep, encoding='latin1')
         df.columns = df.columns.str.strip()
+        
+        '''
+        Esse CSV vira um DataFrame assim:
+
+        nome	idade	cidade
+        Ana	    30	    São Paulo
+        João	25	    Recife
+        Maria	40	    Salvador
+        
+        df.columns retorna:
+        Index(['nome', 'idade', 'cidade'], dtype='object')
+        
+        Ou seja, os nomes das colunas são:
+ 
+        'nome', 'idade', 'cidade'
+        
+        len(df.columns) retorna:
+        3
+        Porque há 3 colunas.
+       
+        '''
+    
     except Exception as e:
         st.error(f"Erro ao ler o CSV: {e}")
         st.stop()
@@ -38,7 +60,7 @@ if uploaded_file:
         st.stop()
 
     # Verificar se há cabeçalhos vazios
-    if df.columns.isnull().any() or any(c.strip() == " " for c in df.columns):
+    if df.columns.isnull().any() or any(c.strip() == "" or c.strip().isnull().any() for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
