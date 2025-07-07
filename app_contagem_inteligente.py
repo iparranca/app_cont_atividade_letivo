@@ -29,26 +29,25 @@ if uploaded_file:
         df = pd.read_csv(uploaded_file, sep=sep, encoding='latin1')
         df.columns = df.columns.str.strip()
         
-        '''
-        Esse CSV vira um DataFrame assim:
 
-        nome	idade	cidade
-        Ana	    30	    São Paulo
-        João	25	    Recife
-        Maria	40	    Salvador
-        
-        df.columns retorna:
-        Index(['nome', 'idade', 'cidade'], dtype='object')
-        
-        Ou seja, os nomes das colunas são:
- 
-        'nome', 'idade', 'cidade'
-        
-        len(df.columns) retorna:
-        3
-        Porque há 3 colunas.
-       
-        '''
+           # Esse CSV vira um DataFrame assim:
+    
+           # nome	idade	cidade
+           # Ana	    30	    São Paulo
+           # João	25	    Recife
+           # Maria	40	    Salvador
+            
+           # df.columns retorna:
+           # Index(['nome', 'idade', 'cidade'], dtype='object')
+            
+           # Ou seja, os nomes das colunas são:
+     
+           # 'nome', 'idade', 'cidade'
+            
+           # len(df.columns) retorna:
+           # 3
+           # Porque há 3 colunas.
+
     
     except Exception as e:
         st.error(f"Erro ao ler o CSV: {e}")
@@ -60,7 +59,7 @@ if uploaded_file:
         st.stop()
 
     # Verificar se há cabeçalhos vazios
-    if df.columns.isnull().any() or any(c.strip() == "" or c.strip().isnull().any() for c in df.columns):
+    if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
@@ -70,6 +69,22 @@ if uploaded_file:
     except Exception:
         st.error(f"A primeira coluna «{primeira_coluna}» não contém datas válidas. Verifique se o ficheiro tem cabeçalhos.")
         st.stop()
+        
+#meu - inicio
+        colunas_vazias = df.columns[df.isnull().all()]
+        colunas_com_nulos = df.columns[df.isnull().any()]
+        
+        if len(colunas_vazias) > 0:
+            st.error("Colunas totalmente vazias:")
+            st.error(colunas_vazias.tolist())
+        
+        if len(colunas_com_nulos) > 0:
+            st.error("Colunas com pelo menos um valor nulo:")
+            st.error(colunas_com_nulos.tolist())
+        
+        if len(colunas_vazias) == 0 and len(colunas_com_nulos) == 0:
+            st.error("Todas as colunas estão preenchidas.")
+    #meu - fim
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
 
@@ -101,10 +116,10 @@ if uploaded_file:
     output.seek(0)
 
     st.download_button(
-        label="📥 Descarregar Excel",
+        label="Descarregar Excel",
         data=output.read(),
         file_name="contagem_inteligente.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 else:
-    st.info("👆 Seleciona o separador e carrega um ficheiro CSV para começar.")
+    st.info("Seleciona o separador e carrega um ficheiro CSV para começar.")
