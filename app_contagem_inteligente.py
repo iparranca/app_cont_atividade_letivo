@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
-st.title("Exportar Contagens2222")
+st.title("Exportar Contagens")
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
@@ -62,6 +62,19 @@ if uploaded_file:
     if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
+
+
+primeira_coluna = df.columns[0]
+
+# Verificar se há valores vazios
+if df[primeira_coluna].isnull().any():
+    print("A primeira coluna tem valores vazios.")
+
+# Verificar se é uma coluna com datas
+convertida = pd.to_datetime(df[primeira_coluna], errors='coerce')
+if convertida.notnull().sum() / len(df) > 0.8:
+    print("A primeira coluna parece conter datas.")
+    
 
     primeira_coluna = df.columns[0]
     try:
