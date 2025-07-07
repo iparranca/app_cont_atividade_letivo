@@ -25,25 +25,24 @@ def determinar_ano_letivo(data):
         return f"{data.year - 1}/{data.year}"
 
 if uploaded_file:
-    # 2. Leitura do CSV com o separador escolhido
     try:
-        df = pd.read_csv(
-            uploaded_file,
-            sep=sep,
-            encoding='latin1'
-        )
+        # Tentar ler com o separador escolhido
+        df = pd.read_csv(uploaded_file, sep=sep, encoding='latin1')
+        df.columns = df.columns.str.strip()
     except Exception as e:
         st.error(f"Erro ao ler o CSV: {e}")
         st.stop()
 
-    df.columns = df.columns.str.strip()
+    # Verificar se a primeira linha tem apenas uma coluna (mal separado)
+    if len(df.columns) == 1:
+        st.error("O ficheiro CSV parece não estar separado corretamente. Verifica se escolheste o separador correto (vírgula ou ponto e vírgula).")
+        st.stop()
 
-    # 3. Validar cabeçalhos
+    # Verificar se há cabeçalhos vazios
     if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
-    # 4. Verificar se primeira coluna é Data ou DataHora
     primeira_coluna = df.columns[0]
     try:
         df[primeira_coluna] = pd.to_datetime(df[primeira_coluna], errors='raise')
@@ -51,11 +50,9 @@ if uploaded_file:
         st.error(f"A primeira coluna «{primeira_coluna}» não contém datas válidas. Verifique se o ficheiro tem cabeçalhos.")
         st.stop()
 
-    # 5. Criar coluna AnoLetivo
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
 
-    # 6. Mostrar dados e seleção de colunas para contagem
-    restantes_colunas = df.columns[1:-1]  # exclui data e AnoLetivo
+    restantes_colunas = df.columns[1:-1]  # Exclui data e AnoLetivo
 
     st.write("### 👁️ Pré-visualização dos dados")
     st.dataframe(df)
@@ -70,14 +67,12 @@ if uploaded_file:
         st.warning("Seleciona pelo menos uma coluna para contagem.")
         st.stop()
 
-    # 7. Contagens
     tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
-
     descricao = "Por " + " + ".join(colunas_selecionadas)
+
     st.subheader(f"📋 Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
 
-    # 8. Exportar para Excel
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name="DadosTratados")
