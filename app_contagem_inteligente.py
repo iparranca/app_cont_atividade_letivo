@@ -68,12 +68,14 @@ primeira_coluna1 = df.columns[0]
 
 # Verificar se há valores vazios
 if df[primeira_coluna1].isnull().any():
-    print("A primeira coluna tem valores vazios.")
+    st.error(("A primeira coluna tem valores vazios.")
+    st.stop()
 
 # Verificar se é uma coluna com datas
 convertida = pd.to_datetime(df[primeira_coluna1], errors='coerce')
 if convertida.notnull().sum() / len(df) > 0.8:
-    print("A primeira coluna parece conter datas.")
+    st.error(("A primeira coluna parece conter datas.")
+    st.stop()
     
 
     primeira_coluna = df.columns[0]
