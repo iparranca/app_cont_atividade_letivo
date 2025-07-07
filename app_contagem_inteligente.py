@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
-st.title("Exportar Contagens")
+st.title("Exportar Contagens2222")
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
@@ -75,15 +75,15 @@ if uploaded_file:
         colunas_com_nulos = df.columns[df.isnull().any()]
         
         if len(colunas_vazias) > 0:
-            st.error("Colunas totalmente vazias:")
-            st.error(colunas_vazias.tolist())
+            print("Colunas totalmente vazias:")
+            print(colunas_vazias.tolist())
         
         if len(colunas_com_nulos) > 0:
-            st.error("Colunas com pelo menos um valor nulo:")
-            st.error(colunas_com_nulos.tolist())
+            print("Colunas com pelo menos um valor nulo:")
+            print(colunas_com_nulos.tolist())
         
         if len(colunas_vazias) == 0 and len(colunas_com_nulos) == 0:
-            st.error("Todas as colunas estão preenchidas.")
+            print("Todas as colunas estão preenchidas.")
     #meu - fim
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
