@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
-st.title("📊 Contagem Inteligente de Colunas")
+st.title("📊 Contagem Inteligente de Colunas2")
 
 # 1. Escolha do separador
 sep = st.selectbox(
