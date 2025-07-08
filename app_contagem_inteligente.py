@@ -33,19 +33,37 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Notas
-st.info("""**Notas importantes**
+#st.info("""**Notas importantes**
 
-Ficheiro a carregar:  
-   a) Só pode carregar um ficheiro CSV (guarde o ficheiro Excel como CSV);  
-   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação) deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
-   c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna.  
+#Ficheiro a carregar:  
+#   a) Só pode carregar um ficheiro CSV (guarde o ficheiro Excel como CSV);  
+#   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação) deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
+#   c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna.  
 
-   **Exemplo:**  
-   Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina  
-   25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português  
-   25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca  
-   25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre
-""")
+#   **Exemplo:**  
+#   Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina  
+#  25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português  
+#   25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca  
+#   25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre
+#""")
+
+st.markdown("""
+<div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
+  <p style='font-size:16px;'><strong>Notas importantes</strong></p>
+  <p>Ficheiro a carregar:</p>
+  <ul>
+    <li>Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
+    <li>A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
+    <li>Colocar na primeira linha uma linha nova com os <span style='color:#007BFF;'>cabeçalhos</span> de cada coluna.</li>
+  </ul>
+
+  <p><strong>Exemplo:</strong></p>
+  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina
+25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português
+25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca
+25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
+</div>
+""", unsafe_allow_html=True)
 
 st.info("""**Selecione**:  
 1 - **primeiro** o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).  
