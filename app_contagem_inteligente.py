@@ -147,6 +147,9 @@ if uploaded_file:
     st.dataframe(df_preview)
     st.markdown('</div>', unsafe_allow_html=True)
 
+    st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
+✅ 
+
     st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
         "",
