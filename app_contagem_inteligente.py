@@ -169,7 +169,7 @@ df_preview.loc['Total'] = total_row
 # Exibe
 st.dataframe(df_preview)
 st.markdown('</div>', unsafe_allow_html=True)
-    #Isabel - Fim
+#Isabel - Fim
     st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
