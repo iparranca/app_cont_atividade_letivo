@@ -32,6 +32,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.info("""Seleciona:  
+1 - primeiro o separador (podes escolher ";" ou "," ou tabulação)  
+2 - carrega um ficheiro CSV para começar.""")
+
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
@@ -137,7 +141,7 @@ if uploaded_file:
     st.markdown(f'<div style="text-align:right; font-weight:bold;">Total geral: {tabela["Contagem"].sum()}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value=f"contagem_{df['AnoLetivo']}")
+    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value=f"contagem_{anos_escolhidos}")
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
@@ -151,5 +155,5 @@ if uploaded_file:
         file_name=nome_ficheiro + ".xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
-else:
-    st.info("Seleciona o separador e carrega um ficheiro CSV para começar.")
+#else:
+#    st.info("Seleciona o separador e carrega um ficheiro CSV para começar.")
