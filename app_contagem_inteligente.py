@@ -49,7 +49,7 @@ st.markdown("""
 
 st.markdown("""
 <div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
-  <p style='font-size:16px;'><strong>Notas importantes</strong></p>
+  <p style='font-size:16px;color:#0056b3;'><strong>Notas importantes</strong></p>
   <p>Ficheiro a carregar:</p>
   <ul>
     <li>a) Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
@@ -69,7 +69,7 @@ st.markdown("""
 #1 - **primeiro** o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).  
 #2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 st.markdown("""
-<div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
+<div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;margin-top:200px;'>
   <p style='font-size:16px;color:#0056b3;'><strong>Selecione</strong></p>
   <ul>
     <li>1 - primeiro o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).<span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
