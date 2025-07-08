@@ -57,7 +57,7 @@ st.markdown("""
     <li>c) Colocar na <span style='color:#007BFF; font-weight:bold;'>primeira linha</span> uma linha nova com os <span style='color:#007BFF;'>cabeçalhos</span> de cada coluna.</li>
   </ul>
 
-  <pstyle='font-size:16px;color:#0056b3;'><strong>Exemplo:</strong></p>
+  <p style='font-size:16px;color:#0056b3;'><strong>Exemplo:</strong></p>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;font-weight:bold;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca</pre>
