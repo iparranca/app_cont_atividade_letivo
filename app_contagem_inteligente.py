@@ -93,16 +93,16 @@ if convertida.notnull().sum() / len(df) > 0.8:
         if len(colunas_vazias) > 0:
             st.error("Colunas totalmente vazias:")
             st.error(colunas_vazias.tolist())
-             st.stop()
+          
         
         if len(colunas_com_nulos) > 0:
             st.error("Colunas com pelo menos um valor nulo:")
             st.error(colunas_com_nulos.tolist())
-             st.stop()
+            
         
         if len(colunas_vazias) == 0 and len(colunas_com_nulos) == 0:
             st.error("Todas as colunas estão preenchidas.")
-             st.stop()
+            
     #meu - fim
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
