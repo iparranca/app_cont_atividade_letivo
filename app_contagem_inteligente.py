@@ -131,12 +131,45 @@ if uploaded_file:
     # Pré-visualização
     st.markdown('<div class="preview-section">', unsafe_allow_html=True)
     st.write("### Pré-visualização dos dados")
-    df_preview = df.copy()
-    numeric_cols = df_preview.select_dtypes(include='number').columns
-    total_row = pd.Series(["" for _ in df_preview.columns], index=df_preview.columns)
-    total_row[numeric_cols] = df_preview[numeric_cols].sum(numeric_only=True)
-    df_preview.loc['Total'] = total_row
-    st.dataframe(df_preview)
+    #Isabel - Inicio
+    #df_preview = df.copy()
+    #numeric_cols = df_preview.select_dtypes(include='number').columns
+    #total_row = pd.Series(["" for _ in df_preview.columns], index=df_preview.columns)
+    #total_row[numeric_cols] = df_preview[numeric_cols].sum(numeric_only=True)
+    #df_preview.loc['Total'] = total_row
+    #st.dataframe(df_preview)
+    # Pré-visualização dos dados
+st.markdown('<div class="preview-section">', unsafe_allow_html=True)
+st.write("### Pré-visualização dos dados")
+
+df_preview = df.copy()
+
+# Renomeia colunas
+col_data = df.columns[0]  # Primeira coluna original (de data)
+df_preview = df_preview.rename(columns={
+    col_data: "Data",
+    "AnoLetivo": "Ano Letivo"
+})
+
+# Reordena colunas: Ano Letivo primeiro
+cols = df_preview.columns.tolist()
+cols.insert(0, cols.pop(cols.index("Ano Letivo")))  # Move "Ano Letivo" para o início
+
+# Oculta colunas técnicas
+colunas_a_ocultar = {"Dia", "Mês", "Trimestre", "Semestre"}
+cols = [c for c in cols if c not in colunas_a_ocultar]
+df_preview = df_preview[cols]
+
+# Adiciona linha de totais (apenas para colunas numéricas)
+numeric_cols = df_preview.select_dtypes(include='number').columns
+total_row = pd.Series(["" for _ in df_preview.columns], index=df_preview.columns)
+total_row[numeric_cols] = df_preview[numeric_cols].sum(numeric_only=True)
+df_preview.loc['Total'] = total_row
+
+# Exibe
+st.dataframe(df_preview)
+st.markdown('</div>', unsafe_allow_html=True)
+    #Isabel - Fim
     st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
