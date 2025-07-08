@@ -61,7 +61,7 @@ st.markdown("""
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;font-weight:bold;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca</pre>
-  <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;margin-bottom: 400px;'>25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
+  <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;margin-top: 400px;'>25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
 </div>
 """, unsafe_allow_html=True)
 
