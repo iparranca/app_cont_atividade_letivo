@@ -37,8 +37,7 @@ st.info("""**Notas importantes**
 
 Ficheiro a carregar:  
    a) Só pode carregar um ficheiro CSV (guarde o ficheiro Excel como CSV);  
-   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)  
-      deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
+   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação) deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
    c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna.  
 
    **Exemplo:**  
