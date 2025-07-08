@@ -56,14 +56,25 @@ st.info("""**Selecione**:
         #)[0]
 
 # Texto com HTML para tamanho maior e negrito
-st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
+#st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
+
+# Selectbox sem label (label já foi tratada acima)
+#sep = st.selectbox(
+#    "",
+#    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
+#    format_func=lambda x: x[1]
+#)[0]
+
+# Selectbox sem label (label já foi tratada acima)
+st.markdown("""<p style='font-size:20px; font-weight:bold; margin-bottom: 5px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
 
 # Selectbox sem label (label já foi tratada acima)
 sep = st.selectbox(
     "",
     options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
-    format_func=lambda x: x[1]
-)[0]
+    format_func=lambda x: x[1],
+    key="select_sep"
+)
 
 
 st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
