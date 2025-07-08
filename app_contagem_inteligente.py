@@ -61,7 +61,7 @@ sep = st.selectbox(
 )[0]  # <--- AQUI! Isso extrai apenas o separador (string)
 
 # Upload do ficheiro
-st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:20px; font-weight:bold;margin-top: 60px;margin-bottom: 0,2px;color:#0056b3;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
 uploaded_file = st.file_uploader("", type=["csv"])
 
 def determinar_ano_letivo(data):
