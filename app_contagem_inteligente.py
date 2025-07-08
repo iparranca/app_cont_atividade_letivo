@@ -62,24 +62,11 @@ if uploaded_file:
     if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
-
-
-  
+    else:
+        st.error("MMMMMMMMM")
+        st.stop()
 
     primeira_coluna = df.columns[0]
-
-# Verificar se há valores vazios
-if df[primeira_coluna].isnull().any():
-    st.error("A primeira coluna tem valores vazios.")
-    st.stop()
-
-# Verificar se é uma coluna com datas
-convertida = pd.to_datetime(df[primeira_coluna], errors='coerce')
-if convertida.notnull().sum() / len(df) > 0.8:
-    st.error("A primeira coluna parece conter datas.")
-    st.stop()
-
-    
     try:
         df[primeira_coluna] = pd.to_datetime(df[primeira_coluna], errors='raise')
     except Exception:
