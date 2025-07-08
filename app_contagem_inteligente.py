@@ -69,7 +69,7 @@ st.markdown("""
 #1 - **primeiro** o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).  
 #2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 st.markdown("""
-<div style=font-size:14px;'border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;margin-top:80px;'>
+<div style='font-size:14px;border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;margin-top:80px;'>
   <p style='font-size:12px;color:#0056b3;'><strong>Selecione</strong></p>
   <ul>
     <li>1 - primeiro o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).<span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
