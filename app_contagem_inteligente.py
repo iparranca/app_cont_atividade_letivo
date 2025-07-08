@@ -49,7 +49,7 @@ Ficheiro a carregar:
 """)
 
 st.info("""**Selecione**:  
-1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai carregar (podes escolher ";" ou "," ou tabulação).  
+1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai ar (podes escolher ";" ou "," ou tabulação).  
 2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 
 # 1. Escolha do separador
@@ -70,10 +70,7 @@ sep = st.selectbox(
     key="select_sep"
 )
 
-
-#st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
-
-st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 10px; margin-bottom: 1px;'>Carregar ficheiro CSV:</p>""", unsafe_allow_html=True)
+st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 20px; margin-bottom: 1px;'>Carregar ficheiro CSV:</p>""", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
     "",
