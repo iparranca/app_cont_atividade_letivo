@@ -32,17 +32,21 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+#Use dois espaços no final de uma linha ou \n explícito para forçar uma quebra.
 st.info("""**Notas importantes**
-1 - Ficheiro a carregar:
-a) Só pode carregar um ficheiro CSV (guarda o ficheiro excel como CSV);
-b) Primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)
-   tem que conter a informação da data ou Datahora. Esta informação irá referenciar o Ano letivo);
-c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna. Por exemplo:
 
-    Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina
-    25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português
-    25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca
-    25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre""")
+1. Ficheiro a carregar:  
+   a) Só pode carregar um ficheiro CSV (guarda o ficheiro Excel como CSV);  
+   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)  
+      deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
+   c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna.  
+
+   **Exemplo:**  
+   Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina  
+   25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português  
+   25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca  
+   25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre
+""")
 
 st.info("""**Selecione**:  
 1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai carregar (podes escolher ";" ou "," ou tabulação).  
@@ -56,16 +60,6 @@ st.info("""**Selecione**:
         #)[0]
 
 # Texto com HTML para tamanho maior e negrito
-#st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
-
-# Selectbox sem label (label já foi tratada acima)
-#sep = st.selectbox(
-#    "",
-#    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
-#    format_func=lambda x: x[1]
-#)[0]
-
-# Selectbox sem label (label já foi tratada acima)
 st.markdown("""<p style='font-size:20px; font-weight:bold; margin-bottom: 1px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
 
 # Selectbox sem label (label já foi tratada acima)
