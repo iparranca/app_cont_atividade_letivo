@@ -221,7 +221,7 @@ if uploaded_file:
     st.markdown(f'<div style="text-align:right; font-weight:bold;">Total geral: {tabela["Contagem"].sum()}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value=f"contagem_{anos_escolhidos}")
+    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value=f"contagem_{isin(anos_escolhidos)}")
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
