@@ -32,19 +32,42 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.info("""Seleciona:  
-1 - primeiro o separador (podes escolher ";" ou "," ou tabulação)  
-2 - carrega um ficheiro CSV para começar.""")
+st.info("""**Notas importantes**
+1 - Ficheiro a carregar:
+    a) Só pode carregar um ficheiro CSV (guarda o ficheiro excel como CSV)
+    b) Primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)
+       tem que conter a informação da data ou Datahora. Esta informação irá referenciar o Ano letivo)
+    c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna. Por exemplo:
+
+    Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina
+    25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português
+    25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca
+    25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre""")
+
+st.info("""**Selecione**:  
+1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai carregar (podes escolher ";" ou "," ou tabulação).  
+2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 
 # 1. Escolha do separador
-sep = st.selectbox(
-    "Seleciona o separador do teu CSV:",
-    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
-    format_func=lambda x: x[1]
-)[0]
+        #sep = st.selectbox(
+        #    "**Selecione o separador do teu CSV:**",
+        #    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
+        #    format_func=lambda x: x[1]
+        #)[0]
 
+        # Texto com HTML para tamanho maior e negrito
+        st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
+        
+        # Selectbox sem label (label já foi tratada acima)
+        sep = st.selectbox(
+            "",
+            options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
+            format_func=lambda x: x[1]
+        )[0]
+
+st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
 uploaded_file = st.file_uploader(
-    "Carregar ficheiro CSV (primeira coluna = Data ou DataHora)",
+    "",
     type=["csv"]
 )
 
@@ -91,7 +114,7 @@ if uploaded_file:
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
     df['Mês'] = df[primeira_coluna].dt.month_name()
 
-    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Selecione o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
     anos_escolhidos = st.multiselect("", options=anos_disponiveis, default=anos_disponiveis)
 
