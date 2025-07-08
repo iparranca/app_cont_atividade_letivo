@@ -49,15 +49,15 @@ st.markdown("""
 
 st.markdown("""
 <div style='font-size:14px;border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
-  <p style='font-size:14px;color:#0056b3;'><strong>Notas importantes</strong></p>
-  <p>Ficheiro a carregar:</p>
+  <p style='font-size:16px;color:#0056b3;'><strong>Notas importantes</strong></p>
+  <p><strong>Ficheiro a carregar:</strong></p>
   <ul>
     <li>a) Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
     <li>b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
     <li>c) Colocar na <span style='color:#007BFF; font-weight:bold;'>primeira linha</span> uma linha nova com os <span style='color:#007BFF;'>cabeçalhos</span> de cada coluna.</li>
   </ul>
 
-  <p><strong>Exemplo:</strong></p>
+  <p>style='color:#800020;'><strong>Exemplo:</strong></p>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;font-weight:bold;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca</pre>
@@ -70,7 +70,7 @@ st.markdown("""
 #2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 st.markdown("""
 <div style='font-size:14px;border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;margin-top:80px;'>
-  <p style='font-size:12px;color:#0056b3;'><strong>Selecione</strong></p>
+  <p style='font-size:14px;color:#0056b3;'><strong>Selecione</strong></p>
   <ul>
     <li>1 - primeiro o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).<span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
     <li>2 - <span style='color:#007BFF; font-weight:bold;'>Arraste ou clique</span> no botão para carregar o ficheiro CSV . <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
