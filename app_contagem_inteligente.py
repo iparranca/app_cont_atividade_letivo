@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem", layout="wide")
-st.title("Exportar Contagens2222")
+st.title("Exportar Contagens")
 
 # Estilo customizado
 st.markdown("""
@@ -66,7 +66,7 @@ st.info("""**Selecione**:
 #)[0]
 
 # Selectbox sem label (label já foi tratada acima)
-st.markdown("""<p style='font-size:20px; font-weight:bold; margin-bottom: 8px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
+st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 1px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
 
 # Selectbox sem label (label já foi tratada acima)
 sep = st.selectbox(
