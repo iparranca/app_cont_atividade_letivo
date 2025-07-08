@@ -52,9 +52,9 @@ st.markdown("""
   <p style='font-size:16px;'><strong>Notas importantes</strong></p>
   <p>Ficheiro a carregar:</p>
   <ul>
-    <li>Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
-    <li>A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
-    <li>Colocar na primeira linha uma linha nova com os <span style='color:#007BFF;'>cabeçalhos</span> de cada coluna.</li>
+    <li>a) Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
+    <li>b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
+    <li>c) Colocar na primeira linha uma linha nova com os <span style='color:#007BFF;'>cabeçalhos</span> de cada coluna.</li>
   </ul>
 
   <p><strong>Exemplo:</strong></p>
