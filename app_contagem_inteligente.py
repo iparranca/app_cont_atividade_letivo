@@ -7,6 +7,23 @@ from openpyxl import Workbook
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
 st.title("Exportar Contagens")
 
+# Estilo customizado
+st.markdown("""
+    <style>
+    .custom-label {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2A76D2;
+        margin-top: 20px;
+    }
+    .stDownloadButton > button {
+        background-color: #2A76D2;
+        color: white;
+        font-weight: bold;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
@@ -61,10 +78,11 @@ if uploaded_file:
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
 
-    # NOVO: Escolha do ano letivo
+    # NOVO: Escolha do ano letivo com label destacada
+    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
     anos_escolhidos = st.multiselect(
-        "Seleciona o(s) Ano(s) Letivo(s) que queres incluir:",
+        label="",
         options=anos_disponiveis,
         default=anos_disponiveis
     )
@@ -73,7 +91,7 @@ if uploaded_file:
         st.warning("Seleciona pelo menos um ano letivo.")
         st.stop()
 
-    # Filtrar pelo(s) ano(s) letivo(s) escolhido(s)
+    # Filtrar pelo(s) ano(s) letivo(s)
     df = df[df['AnoLetivo'].isin(anos_escolhidos)]
 
     restantes_colunas = df.columns[1:-1]  # Exclui data e AnoLetivo
@@ -81,10 +99,13 @@ if uploaded_file:
     st.write("### Pré-visualização dos dados")
     st.dataframe(df)
 
+    # NOVO: Label destacada e comportamento de fechar ao selecionar
+    st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
-        "Seleciona as colunas para fazer a contagem:",
-        list(restantes_colunas) + ['AnoLetivo'],
-        default=list(restantes_colunas)
+        label="",
+        options=list(restantes_colunas) + ['AnoLetivo'],
+        default=list(restantes_colunas),
+        key="multiselect_colunas"
     )
 
     if not colunas_selecionadas:
@@ -97,6 +118,9 @@ if uploaded_file:
     st.subheader(f"Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
 
+    # NOVO: Input para nome do ficheiro
+    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value="contagem_inteligente")
+
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name="DadosTratados")
@@ -106,7 +130,7 @@ if uploaded_file:
     st.download_button(
         label="Descarregar Excel",
         data=output.read(),
-        file_name="contagem_inteligente.xlsx",
+        file_name=nome_ficheiro + ".xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 else:
