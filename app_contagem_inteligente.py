@@ -58,10 +58,10 @@ st.markdown("""
   </ul>
 
   <p><strong>Exemplo:</strong></p>
-  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina
-25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português
-25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca
-25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
+  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina</pre>
+  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português</pre>
+  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca</pre>
+  <pre style='background-color:#e8f4fd; padding:10px; border-radius:4px;'>25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
 </div>
 """, unsafe_allow_html=True)
 
