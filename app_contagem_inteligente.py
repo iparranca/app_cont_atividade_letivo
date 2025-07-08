@@ -23,6 +23,12 @@ st.markdown("""
         color: white;
         font-weight: bold;
     }
+    .preview-section, .count-section {
+        background-color: #F4F9FF;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -99,10 +105,15 @@ if uploaded_file:
 
     restantes_colunas = df.columns[1:-2]  # Exclui data, AnoLetivo e Mês
 
+    st.markdown('<div class="preview-section">', unsafe_allow_html=True)
     st.write("### Pré-visualização dos dados")
     df_preview = df.copy()
-    df_preview.loc['Total'] = df_preview.select_dtypes(include='number').sum(numeric_only=True)
+    numeric_cols = df_preview.select_dtypes(include='number').columns
+    total_row = df_preview[numeric_cols].sum(numeric_only=True)
+    total_row[df_preview.columns.difference(numeric_cols)] = ""
+    df_preview.loc['Total'] = total_row
     st.dataframe(df_preview)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
@@ -118,12 +129,15 @@ if uploaded_file:
 
     tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
     total_geral = tabela['Contagem'].sum()
-    tabela.loc[len(tabela.index)] = ['Total'] + [''] * (len(colunas_selecionadas) - 1) + [total_geral]
+    total_row = pd.DataFrame([["Total"] + ["" for _ in range(len(colunas_selecionadas) - 1)] + [total_geral]], columns=tabela.columns)
+    tabela = pd.concat([tabela, total_row], ignore_index=True)
 
     descricao = "Por " + " + ".join(colunas_selecionadas)
 
+    st.markdown('<div class="count-section">', unsafe_allow_html=True)
     st.subheader(f"Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value="contagem_inteligente")
 
