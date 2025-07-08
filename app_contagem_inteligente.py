@@ -34,10 +34,10 @@ st.markdown("""
 
 st.info("""**Notas importantes**
 1 - Ficheiro a carregar:
-    a) Só pode carregar um ficheiro CSV (guarda o ficheiro excel como CSV)
-    b) Primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)
-       tem que conter a informação da data ou Datahora. Esta informação irá referenciar o Ano letivo)
-    c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna. Por exemplo:
+a) Só pode carregar um ficheiro CSV (guarda o ficheiro excel como CSV);
+b) Primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)
+   tem que conter a informação da data ou Datahora. Esta informação irá referenciar o Ano letivo);
+c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna. Por exemplo:
 
     Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina
     25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português
