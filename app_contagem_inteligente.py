@@ -4,7 +4,7 @@ import pandas as pd
 from io import BytesIO
 from openpyxl import Workbook
 
-st.set_page_config(page_title="Contagem Inteligente", layout="wide")
+st.set_page_config(page_title="Contagem", layout="wide")
 st.title("Exportar Contagens")
 
 # Estilo customizado
@@ -79,7 +79,7 @@ if uploaded_file:
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
 
     # NOVO: Escolha do ano letivo com label destacada
-    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) a incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
     anos_escolhidos = st.multiselect(
         label="",
@@ -100,7 +100,7 @@ if uploaded_file:
     st.dataframe(df)
 
     # NOVO: Label destacada e comportamento de fechar ao selecionar
-    st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Seleciona as colunas para a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
         label="",
         options=list(restantes_colunas) + ['AnoLetivo'],
