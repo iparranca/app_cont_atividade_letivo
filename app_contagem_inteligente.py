@@ -64,7 +64,9 @@ if uploaded_file:
         st.stop()
 
 
-primeira_coluna = df.columns[0]
+  
+
+    primeira_coluna = df.columns[0]
 
 # Verificar se há valores vazios
 if df[primeira_coluna].isnull().any():
@@ -76,9 +78,8 @@ convertida = pd.to_datetime(df[primeira_coluna], errors='coerce')
 if convertida.notnull().sum() / len(df) > 0.8:
     st.error("A primeira coluna parece conter datas.")
     st.stop()
-    
 
-    primeira_coluna = df.columns[0]
+    
     try:
         df[primeira_coluna] = pd.to_datetime(df[primeira_coluna], errors='raise')
     except Exception:
@@ -90,15 +91,18 @@ if convertida.notnull().sum() / len(df) > 0.8:
         colunas_com_nulos = df.columns[df.isnull().any()]
         
         if len(colunas_vazias) > 0:
-            print("Colunas totalmente vazias:")
-            print(colunas_vazias.tolist())
+            st.error("Colunas totalmente vazias:")
+            st.error(colunas_vazias.tolist())
+             st.stop()
         
         if len(colunas_com_nulos) > 0:
-            print("Colunas com pelo menos um valor nulo:")
-            print(colunas_com_nulos.tolist())
+            st.error("Colunas com pelo menos um valor nulo:")
+            st.error(colunas_com_nulos.tolist())
+             st.stop()
         
         if len(colunas_vazias) == 0 and len(colunas_com_nulos) == 0:
-            print("Todas as colunas estão preenchidas.")
+            st.error("Todas as colunas estão preenchidas.")
+             st.stop()
     #meu - fim
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
