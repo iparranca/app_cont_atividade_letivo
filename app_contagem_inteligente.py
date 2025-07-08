@@ -64,9 +64,6 @@ if uploaded_file:
         st.stop()
 
     primeira_coluna = df.columns[0]
-    if df[primeira_coluna].isnull().any():
-        st.error("AAAA")
-        st.stop()
     try:
         df[primeira_coluna] = pd.to_datetime(df[primeira_coluna], errors='raise')
     except Exception:
