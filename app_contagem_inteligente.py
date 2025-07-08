@@ -64,7 +64,7 @@ if uploaded_file:
         st.stop()
 
     primeira_coluna = df.columns[0]
-    if primeira_coluna.isnull().any():
+    if df[primeira_coluna].isnull().any():
         st.error("AAAA")
         st.stop()
     try:
