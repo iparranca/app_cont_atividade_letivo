@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 from io import BytesIO
@@ -5,10 +6,11 @@ from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
 st.title("Exportar Contagens")
+
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
-    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)") ],
+    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)")],
     format_func=lambda x: x[1]
 )[0]
 
@@ -25,41 +27,17 @@ def determinar_ano_letivo(data):
 
 if uploaded_file:
     try:
-        # Tentar ler com o separador escolhido
         df = pd.read_csv(uploaded_file, sep=sep, encoding='latin1')
         df.columns = df.columns.str.strip()
-        
-
-           # Esse CSV vira um DataFrame assim:
-    
-           # nome	idade	cidade
-           # Ana	 30	    São Paulo
-           # João	 25	    Recife
-           # Maria	 40	    Salvador
-            
-           # df.columns retorna:
-           # Index(['nome', 'idade', 'cidade'], dtype='object')
-            
-           # Ou seja, os nomes das colunas são:
-     
-           # 'nome', 'idade', 'cidade'
-            
-           # len(df.columns) retorna:
-           # 3
-           # Porque há 3 colunas.
-
-    
     except Exception as e:
         st.error(f"Erro ao ler o CSV: {e}")
         st.stop()
 
-    # Verificar se a primeira linha tem apenas uma coluna (se não separaram com , ou ; assume um texto sendo uma coluna)
     if len(df.columns) == 1:
-        st.error("O ficheiro CSV parece não estar separado corretamente. Verifica se escolheste o separador correto (vírgula ou ponto e vírgula).")
+        st.error("O ficheiro CSV parece não estar separado corretamente.")
         st.stop()
 
-    # Verificar se há cabeçalhos vazios
-    if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
+    if pd.Series(df.columns).isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
@@ -67,29 +45,36 @@ if uploaded_file:
     try:
         df[primeira_coluna] = pd.to_datetime(df[primeira_coluna], errors='raise')
     except Exception:
-        st.error(f"A primeira coluna «{primeira_coluna}» não contém datas válidas. Verifique se o ficheiro tem cabeçalhos.")
+        st.error(f"A primeira coluna «{primeira_coluna}» não contém datas válidas.")
         st.stop()
-        
-#meu - inicio
-        colunas_vazias = df.columns[df.isnull().all()]
-        colunas_com_nulos = df.columns[df.isnull().any()]
-        
-        if len(colunas_vazias) > 0:
-            st.error("Colunas totalmente vazias:")
-            st.error(colunas_vazias.tolist())
-          
-        
-        if len(colunas_com_nulos) > 0:
-            st.error("Colunas com pelo menos um valor nulo:")
-            st.error(colunas_com_nulos.tolist())
-            
-        
-        if len(colunas_vazias) == 0 and len(colunas_com_nulos) == 0:
-            st.error("Todas as colunas estão preenchidas.")
-            
-    #meu - fim
+
+    colunas_vazias = df.columns[df.isnull().all()]
+    colunas_com_nulos = df.columns[df.isnull().any()]
+
+    if len(colunas_vazias) > 0:
+        st.error("Colunas totalmente vazias:")
+        st.error(colunas_vazias.tolist())
+
+    if len(colunas_com_nulos) > 0:
+        st.warning("Colunas com pelo menos um valor nulo:")
+        st.warning(colunas_com_nulos.tolist())
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
+
+    # NOVO: Escolha do ano letivo
+    anos_disponiveis = sorted(df['AnoLetivo'].unique())
+    anos_escolhidos = st.multiselect(
+        "Seleciona o(s) Ano(s) Letivo(s) que queres incluir:",
+        options=anos_disponiveis,
+        default=anos_disponiveis
+    )
+
+    if not anos_escolhidos:
+        st.warning("Seleciona pelo menos um ano letivo.")
+        st.stop()
+
+    # Filtrar pelo(s) ano(s) letivo(s) escolhido(s)
+    df = df[df['AnoLetivo'].isin(anos_escolhidos)]
 
     restantes_colunas = df.columns[1:-1]  # Exclui data e AnoLetivo
 
