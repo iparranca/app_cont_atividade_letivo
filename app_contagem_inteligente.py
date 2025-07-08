@@ -65,9 +65,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.info("""**Selecione**:  
-1 - **primeiro** o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).  
-2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
+#st.info("""**Selecione**:  
+#1 - **primeiro** o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).  
+#2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
+st.markdown("""
+<div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
+  <p style='font-size:16px;'><strong>Selecione</strong></p>
+  <ul>
+    <li>1 - primeiro o tipo de separador que tem dentro do ficheiro (podes escolher ";" ou "," ou tabulação).<span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
+    <li>2 - <span style='color:#007BFF; font-weight:bold;'>Arraste ou clique</span> no botão para carregar o ficheiro CSV . <span style='color:#007BFF;'>";"</span> ou <span style='color:#007BFF;'>","</span> ou <span style='color:#007BFF;'>tabulação</span>) deve conter a informação da <span style='color:#007BFF;'>data</span> ou <span style='color:#007BFF;'>Datahora</span>. Esta informação irá referenciar o <span style='color:#007BFF;'>Ano Letivo</span>;</li>
+  </ul>
+</div>
+""", unsafe_allow_html=True)
 
 # Separador
 st.markdown("<p style='font-size:20px; font-weight:bold;margin-top: 100px;margin-bottom: 0,2px;color:#0056b3;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
