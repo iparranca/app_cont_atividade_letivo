@@ -48,8 +48,8 @@ Ficheiro a carregar:
 """)
 
 st.info("""**Selecione**:  
-1 - **primeiro** o tipo de separador do ficheiro (podes escolher ";" ou "," ou tabulação).  
-2 - **Depois**, carrega o ficheiro CSV.""")
+1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai ar (podes escolher ";" ou "," ou tabulação).  
+2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 
 # Separador
 st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
