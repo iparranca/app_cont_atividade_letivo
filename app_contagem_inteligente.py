@@ -60,7 +60,7 @@ st.info("""**Selecione**:
         #)[0]
 
 # Texto com HTML para tamanho maior e negrito
-st.markdown("""<p style='font-size:20px; font-weight:bold; margin-bottom: 1px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
+st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 10px; margin-bottom: 1px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
 
 # Selectbox sem label (label já foi tratada acima)
 sep = st.selectbox(
@@ -71,7 +71,10 @@ sep = st.selectbox(
 )
 
 
-st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
+#st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
+
+st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 10px; margin-bottom: 1px;'>Carregar ficheiro CSV:</p>""", unsafe_allow_html=True)
+
 uploaded_file = st.file_uploader(
     "",
     type=["csv"]
