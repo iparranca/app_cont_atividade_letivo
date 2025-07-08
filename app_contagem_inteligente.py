@@ -48,8 +48,8 @@ st.markdown("""
 #""")
 
 st.markdown("""
-<div style='border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
-  <p style='font-size:12px;color:#0056b3;'><strong>Notas importantes</strong></p>
+<div style='font-size:14px;border-left: 6px solid #2196F3; background-color: #f0f8ff; padding: 16px; border-radius: 6px;'>
+  <p style='font-size:14px;color:#0056b3;'><strong>Notas importantes</strong></p>
   <p>Ficheiro a carregar:</p>
   <ul>
     <li>a) Só pode carregar um ficheiro <span style='color:#007BFF; font-weight:bold;'>CSV</span> (guarde o ficheiro Excel como CSV);</li>
