@@ -35,7 +35,7 @@ st.markdown("""
 #Use dois espaços no final de uma linha ou \n explícito para forçar uma quebra.
 st.info("""**Notas importantes**
 
-1. Ficheiro a carregar:  
+Ficheiro a carregar:  
    a) Só pode carregar um ficheiro CSV (guarda o ficheiro Excel como CSV);  
    b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação)  
       deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
