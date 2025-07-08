@@ -59,7 +59,7 @@ if uploaded_file:
         st.stop()
 
     # Verificar se há cabeçalhos vazios
-    if df.columns.isnull().any() or any(c.strip() == "  " for c in df.columns):
+    if df.Series(columns).isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
