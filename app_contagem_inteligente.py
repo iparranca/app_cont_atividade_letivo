@@ -119,6 +119,11 @@ if uploaded_file:
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
     df['Mês'] = df[primeira_coluna].dt.month_name()
 
+#Isabel
+df['Dia'] = df[primeira_coluna].dt.date
+df['Trimestre'] = df[primeira_coluna].dt.quarter
+df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
+
     st.markdown('<div class="custom-label">Selecione o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
     anos_escolhidos = st.multiselect("", options=anos_disponiveis, default=anos_disponiveis)
@@ -148,7 +153,6 @@ if uploaded_file:
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
-✅ 
 
     st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
@@ -162,12 +166,42 @@ if uploaded_file:
         st.warning("Seleciona pelo menos uma coluna para contagem.")
         st.stop()
 
-    tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+#isabel
+    st.markdown('<div class="custom-label">Seleciona como queres calcular a média:</div>', unsafe_allow_html=True)
+agregacao = st.selectbox(
+    "",
+    options=["Nenhuma", "Por Dia", "Por Mês", "Por Trimestre", "Por Semestre"]
+)
+    #Isabel - Início
+    #tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+base_tabela = df.copy()
+
+if agregacao == "Por Dia":
+    total_periodos = base_tabela['Dia'].nunique()
+elif agregacao == "Por Mês":
+    total_periodos = base_tabela['Mês'].nunique()
+elif agregacao == "Por Trimestre":
+    total_periodos = base_tabela['Trimestre'].nunique()
+elif agregacao == "Por Semestre":
+    total_periodos = base_tabela['Semestre'].nunique()
+else:
+    total_periodos = None
+
+tabela = base_tabela.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+
+if total_periodos and total_periodos > 0:
+    tabela["Média"] = tabela["Contagem"] / total_periodos
+    tabela["Média"] = tabela["Média"].round(2)
+    
+    #Isabel - Fim
 
     descricao = "Por " + " + ".join(colunas_selecionadas)
 
     st.markdown('<div class="count-section">', unsafe_allow_html=True)
-    st.subheader(f"Resultado da Contagem ({descricao})")
+    #Isabel - Inicio
+    #st.subheader(f"Resultado da Contagem ({descricao})")
+     st.subheader(f"Resultado da Contagem ({descricao})" + (f" — Média {agregacao.lower()}" if agregacao != "Nenhuma" else ""))
+    #Isabel - Fim
     st.dataframe(tabela)
     st.markdown(f'<div style="text-align:right; font-weight:bold;">Total geral: {tabela["Contagem"].sum()}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
