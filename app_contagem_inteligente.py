@@ -128,10 +128,12 @@ if uploaded_file:
 
     restantes_colunas = df.columns[1:-6]
 
-    # Pré-visualização
-    st.markdown('<div class="preview-section">', unsafe_allow_html=True)
-    st.write("### Pré-visualização dos dados")
+
+    
     #Isabel - Inicio
+    # Pré-visualização
+    #st.markdown('<div class="preview-section">', unsafe_allow_html=True)
+    #st.write("### Pré-visualização dos dados")
     #df_preview = df.copy()
     #numeric_cols = df_preview.select_dtypes(include='number').columns
     #total_row = pd.Series(["" for _ in df_preview.columns], index=df_preview.columns)
@@ -170,6 +172,7 @@ df_preview.loc['Total'] = total_row
 st.dataframe(df_preview)
 st.markdown('</div>', unsafe_allow_html=True)
 #Isabel - Fim
+
     st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
