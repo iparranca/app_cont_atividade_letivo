@@ -33,9 +33,9 @@ if uploaded_file:
            # Esse CSV vira um DataFrame assim:
     
            # nome	idade	cidade
-           # Ana	    30	    São Paulo
-           # João	25	    Recife
-           # Maria	40	    Salvador
+           # Ana	 30	    São Paulo
+           # João	 25	    Recife
+           # Maria	 40	    Salvador
             
            # df.columns retorna:
            # Index(['nome', 'idade', 'cidade'], dtype='object')
@@ -59,7 +59,7 @@ if uploaded_file:
         st.stop()
 
     # Verificar se há cabeçalhos vazios
-    if df.Series(columns).isnull().any() or any(c.strip() == "" for c in df.columns):
+    if df.columns.isnull().any() or any(c.strip() == "" for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
 
