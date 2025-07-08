@@ -32,12 +32,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-#Use dois espaços no final de uma linha ou \n explícito para forçar uma quebra.
+# Notas
 st.info("""**Notas importantes**
 
 Ficheiro a carregar:  
    a) Só pode carregar um ficheiro CSV (guarde o ficheiro Excel como CSV);  
-   b) A primeira coluna (informação que está antes do primeiro separador, isto é, antes do primeiro ";" ou "," ou tabulação) deve conter a informação da data ou Datahora. Esta informação irá referenciar o Ano Letivo;  
+   b) A primeira coluna (informação que está antes do primeiro separador) deve conter a informação da data ou Datahora.  
    c) Colocar na primeira linha uma linha nova com os cabeçalhos de cada coluna.  
 
    **Exemplo:**  
@@ -48,33 +48,21 @@ Ficheiro a carregar:
 """)
 
 st.info("""**Selecione**:  
-1 - **primeiro** o tipo de separador que tem dentro do ficheiro que vai ar (podes escolher ";" ou "," ou tabulação).  
-2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
+1 - **primeiro** o tipo de separador do ficheiro (podes escolher ";" ou "," ou tabulação).  
+2 - **Depois**, carrega o ficheiro CSV.""")
 
-# 1. Escolha do separador
-        #sep = st.selectbox(
-        #    "**Selecione o separador do teu CSV:**",
-        #    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
-        #    format_func=lambda x: x[1]
-        #)[0]
-
-# Texto com HTML para tamanho maior e negrito
-st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 10px; margin-bottom: 1px;'>Selecione o separador do teu CSV:</p>""", unsafe_allow_html=True)
-
-# Selectbox sem label (label já foi tratada acima)
+# Separador
+st.markdown("<p style='font-size:20px; font-weight:bold;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
 sep = st.selectbox(
     "",
-    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
+    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("	", "Tabulação")],
     format_func=lambda x: x[1],
     key="select_sep"
 )
 
-st.markdown("""<p style='font-size:20px; font-weight:bold; margin-top: 20px; margin-bottom: 1px;'>Carregar ficheiro CSV:</p>""", unsafe_allow_html=True)
-
-uploaded_file = st.file_uploader(
-    "",
-    type=["csv"]
-)
+# Upload do ficheiro
+st.markdown("<p style='font-size:20px; font-weight:bold;'>Carregar ficheiro CSV:</p>", unsafe_allow_html=True)
+uploaded_file = st.file_uploader("", type=["csv"])
 
 def determinar_ano_letivo(data):
     if data.month >= 9:
@@ -118,11 +106,9 @@ if uploaded_file:
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
     df['Mês'] = df[primeira_coluna].dt.month_name()
-
-#Isabel
-df['Dia'] = df[primeira_coluna].dt.date
-df['Trimestre'] = df[primeira_coluna].dt.quarter
-df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
+    df['Dia'] = df[primeira_coluna].dt.date
+    df['Trimestre'] = df[primeira_coluna].dt.quarter
+    df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
 
     st.markdown('<div class="custom-label">Selecione o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
@@ -140,8 +126,9 @@ df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
     meses_escolhidos = st.multiselect("", options=meses_disponiveis, default=meses_disponiveis)
     df = df[df['Mês'].isin(meses_escolhidos)]
 
-    restantes_colunas = df.columns[1:-2]  # Exclui data, AnoLetivo e Mês
+    restantes_colunas = df.columns[1:-6]
 
+    # Pré-visualização
     st.markdown('<div class="preview-section">', unsafe_allow_html=True)
     st.write("### Pré-visualização dos dados")
     df_preview = df.copy()
@@ -150,10 +137,10 @@ df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
     total_row[numeric_cols] = df_preview[numeric_cols].sum(numeric_only=True)
     df_preview.loc['Total'] = total_row
     st.dataframe(df_preview)
+    st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown(f"<div style='text-align:right; font-weight:bold;'>Total de registos: {len(df)}</div>", unsafe_allow_html=True)
-
+    # Escolha das colunas e agregação
     st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
         "",
@@ -166,42 +153,34 @@ df['Semestre'] = df[primeira_coluna].dt.month.map(lambda m: 1 if m <= 6 else 2)
         st.warning("Seleciona pelo menos uma coluna para contagem.")
         st.stop()
 
-#isabel
     st.markdown('<div class="custom-label">Seleciona como queres calcular a média:</div>', unsafe_allow_html=True)
-agregacao = st.selectbox(
-    "",
-    options=["Nenhuma", "Por Dia", "Por Mês", "Por Trimestre", "Por Semestre"]
-)
-    #Isabel - Início
-    #tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
-base_tabela = df.copy()
+    agregacao = st.selectbox(
+        "",
+        options=["Nenhuma", "Por Dia", "Por Mês", "Por Trimestre", "Por Semestre"]
+    )
 
-if agregacao == "Por Dia":
-    total_periodos = base_tabela['Dia'].nunique()
-elif agregacao == "Por Mês":
-    total_periodos = base_tabela['Mês'].nunique()
-elif agregacao == "Por Trimestre":
-    total_periodos = base_tabela['Trimestre'].nunique()
-elif agregacao == "Por Semestre":
-    total_periodos = base_tabela['Semestre'].nunique()
-else:
-    total_periodos = None
+    base_tabela = df.copy()
 
-tabela = base_tabela.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+    if agregacao == "Por Dia":
+        total_periodos = base_tabela['Dia'].nunique()
+    elif agregacao == "Por Mês":
+        total_periodos = base_tabela['Mês'].nunique()
+    elif agregacao == "Por Trimestre":
+        total_periodos = base_tabela['Trimestre'].nunique()
+    elif agregacao == "Por Semestre":
+        total_periodos = base_tabela['Semestre'].nunique()
+    else:
+        total_periodos = None
 
-if total_periodos and total_periodos > 0:
-    tabela["Média"] = tabela["Contagem"] / total_periodos
-    tabela["Média"] = tabela["Média"].round(2)
-    
-    #Isabel - Fim
+    tabela = base_tabela.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+
+    if total_periodos and total_periodos > 0:
+        tabela["Média"] = tabela["Contagem"] / total_periodos
+        tabela["Média"] = tabela["Média"].round(2)
 
     descricao = "Por " + " + ".join(colunas_selecionadas)
-
     st.markdown('<div class="count-section">', unsafe_allow_html=True)
-    #Isabel - Inicio
-    #st.subheader(f"Resultado da Contagem ({descricao})")
-     st.subheader(f"Resultado da Contagem ({descricao})" + (f" — Média {agregacao.lower()}" if agregacao != "Nenhuma" else ""))
-    #Isabel - Fim
+    st.subheader(f"Resultado da Contagem ({descricao})" + (f" — Média {agregacao.lower()}" if agregacao != "Nenhuma" else ""))
     st.dataframe(tabela)
     st.markdown(f'<div style="text-align:right; font-weight:bold;">Total geral: {tabela["Contagem"].sum()}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -220,5 +199,3 @@ if total_periodos and total_periodos > 0:
         file_name=nome_ficheiro + ".xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
-#else:
-#    st.info("Seleciona o separador e carrega um ficheiro CSV para começar.")
