@@ -61,7 +61,7 @@ st.markdown("""
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;font-weight:bold;'>Ano Letivo;Aluno;Atividade;Ciclo;Ano Turma;Turma;Disciplina</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Ler;2º Ciclo;6º Ano;H;Português</pre>
   <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;'>25/09/2023;Aluno;Pesquisar na Internet;3º Ciclo;7º Ano;C;Atividade da Biblioteca</pre>
-  <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;margin-bottom: 200px'>25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
+  <pre style='background-color:#e8f4fd; padding:4px; border-radius:4px;margin-bottom: 400px'>25/09/2023;Aluno;Trabalhar em grupo;2º Ciclo;6º Ano;A;Tempo Livre</pre>
 </div>
 """, unsafe_allow_html=True)
 
@@ -70,7 +70,7 @@ st.info("""**Selecione**:
 2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 
 # Separador
-st.markdown("<p style='font-size:20px; font-weight:bold;margin-top: 280px;margin-bottom: 0,2px;color:#0056b3;'>Selecione22 o separador do teu CSV:</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:20px; font-weight:bold;margin-top: 100px;margin-bottom: 0,2px;color:#0056b3;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
 sep = st.selectbox(
     "",
     options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
