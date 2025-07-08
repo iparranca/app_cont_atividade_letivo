@@ -52,7 +52,7 @@ st.info("""**Selecione**:
 2 - **Arraste ou clique** no botão para carregar o ficheiro CSV .""")
 
 # Separador
-st.markdown("<p style='font-size:20px; font-weight:bold;margin-bottom: 0,6px;color:#0056b3;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
+st.markdown("<p style='font-size:20px; font-weight:bold;margin-bottom: 0,2px;color:#0056b3;'>Selecione o separador do teu CSV:</p>", unsafe_allow_html=True)
 sep = st.selectbox(
     "",
     options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
