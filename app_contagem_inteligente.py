@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem Inteligente", layout="wide")
-st.title("Exportar Contagens222222")
+st.title("Exportar Contagens")
 
 # Estilo customizado
 st.markdown("""
@@ -12,10 +12,10 @@ st.markdown("""
     .custom-label {
         font-size: 20px;
         font-weight: bold;
-        color: #2A76D2;
+        color: white;
         margin-top: 20px;
         padding: 10px;
-        background-color: #EAF2FB;
+        background-color: #1E88E5;
         border-radius: 5px;
     }
     .stDownloadButton > button {
@@ -24,7 +24,7 @@ st.markdown("""
         font-weight: bold;
     }
     .preview-section, .count-section {
-        background-color: #F4F9FF;
+        background-color: #BBDEFB;
         padding: 20px;
         border-radius: 8px;
         margin-top: 20px;
@@ -128,18 +128,16 @@ if uploaded_file:
         st.stop()
 
     tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
-    total_geral = tabela['Contagem'].sum()
-    total_row = pd.DataFrame([["Total"] + ["" for _ in range(len(colunas_selecionadas) - 1)] + [total_geral]], columns=tabela.columns)
-    tabela = pd.concat([tabela, total_row], ignore_index=True)
 
     descricao = "Por " + " + ".join(colunas_selecionadas)
 
     st.markdown('<div class="count-section">', unsafe_allow_html=True)
     st.subheader(f"Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
+    st.markdown(f'<div style="text-align:right; font-weight:bold;">Total geral: {tabela["Contagem"].sum()}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value="contagem_inteligente")
+    nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value=f"contagem_{df['AnoLetivo']}")
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
