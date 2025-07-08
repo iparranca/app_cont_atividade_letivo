@@ -62,9 +62,6 @@ if uploaded_file:
     if df.columns.isnull().any() or any(c.strip() == "  " for c in df.columns):
         st.error("Todos os cabeçalhos devem estar preenchidos.")
         st.stop()
-    else:
-        st.error("MMMMMMMMM")
-        st.stop()
 
     primeira_coluna = df.columns[0]
     if df[primeira_coluna].isnull().any():
