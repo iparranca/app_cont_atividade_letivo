@@ -109,8 +109,8 @@ if uploaded_file:
     st.write("### Pré-visualização dos dados")
     df_preview = df.copy()
     numeric_cols = df_preview.select_dtypes(include='number').columns
-    total_row = df_preview[numeric_cols].sum(numeric_only=True)
-    total_row[df_preview.columns.difference(numeric_cols)] = ""
+    total_row = pd.Series(["" for _ in df_preview.columns], index=df_preview.columns)
+    total_row[numeric_cols] = df_preview[numeric_cols].sum(numeric_only=True)
     df_preview.loc['Total'] = total_row
     st.dataframe(df_preview)
     st.markdown('</div>', unsafe_allow_html=True)
