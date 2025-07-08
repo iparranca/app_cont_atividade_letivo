@@ -1,10 +1,9 @@
-
 import streamlit as st
 import pandas as pd
 from io import BytesIO
 from openpyxl import Workbook
 
-st.set_page_config(page_title="Contagem", layout="wide")
+st.set_page_config(page_title="Contagem Inteligente", layout="wide")
 st.title("Exportar Contagens")
 
 # Estilo customizado
@@ -15,6 +14,9 @@ st.markdown("""
         font-weight: bold;
         color: #2A76D2;
         margin-top: 20px;
+        padding: 10px;
+        background-color: #EAF2FB;
+        border-radius: 5px;
     }
     .stDownloadButton > button {
         background-color: #2A76D2;
@@ -27,7 +29,7 @@ st.markdown("""
 # 1. Escolha do separador
 sep = st.selectbox(
     "Seleciona o separador do teu CSV:",
-    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)")],
+    options=[(";", "Ponto e Vírgula (;)"), (",", "Vírgula (,)"), ("\t", "Tabulação")],
     format_func=lambda x: x[1]
 )[0]
 
@@ -77,33 +79,35 @@ if uploaded_file:
         st.warning(colunas_com_nulos.tolist())
 
     df['AnoLetivo'] = df[primeira_coluna].apply(determinar_ano_letivo)
+    df['Mês'] = df[primeira_coluna].dt.month_name()
 
-    # NOVO: Escolha do ano letivo com label destacada
-    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) a incluir:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Seleciona o(s) Ano(s) Letivo(s) que queres incluir:</div>', unsafe_allow_html=True)
     anos_disponiveis = sorted(df['AnoLetivo'].unique())
-    anos_escolhidos = st.multiselect(
-        label="",
-        options=anos_disponiveis,
-        default=anos_disponiveis
-    )
+    anos_escolhidos = st.multiselect("", options=anos_disponiveis, default=anos_disponiveis)
 
     if not anos_escolhidos:
         st.warning("Seleciona pelo menos um ano letivo.")
         st.stop()
 
-    # Filtrar pelo(s) ano(s) letivo(s)
     df = df[df['AnoLetivo'].isin(anos_escolhidos)]
 
-    restantes_colunas = df.columns[1:-1]  # Exclui data e AnoLetivo
+    # Filtro por mês
+    st.markdown('<div class="custom-label">Seleciona o(s) Mês(es):</div>', unsafe_allow_html=True)
+    meses_disponiveis = df['Mês'].unique()
+    meses_escolhidos = st.multiselect("", options=meses_disponiveis, default=meses_disponiveis)
+    df = df[df['Mês'].isin(meses_escolhidos)]
+
+    restantes_colunas = df.columns[1:-2]  # Exclui data, AnoLetivo e Mês
 
     st.write("### Pré-visualização dos dados")
-    st.dataframe(df)
+    df_preview = df.copy()
+    df_preview.loc['Total'] = df_preview.select_dtypes(include='number').sum(numeric_only=True)
+    st.dataframe(df_preview)
 
-    # NOVO: Label destacada e comportamento de fechar ao selecionar
-    st.markdown('<div class="custom-label">Seleciona as colunas para a contagem:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Seleciona as colunas para fazer a contagem:</div>', unsafe_allow_html=True)
     colunas_selecionadas = st.multiselect(
-        label="",
-        options=list(restantes_colunas) + ['AnoLetivo'],
+        "",
+        options=list(restantes_colunas) + ['AnoLetivo', 'Mês'],
         default=list(restantes_colunas),
         key="multiselect_colunas"
     )
@@ -113,12 +117,14 @@ if uploaded_file:
         st.stop()
 
     tabela = df.groupby(colunas_selecionadas).size().reset_index(name="Contagem")
+    total_geral = tabela['Contagem'].sum()
+    tabela.loc[len(tabela.index)] = ['Total'] + [''] * (len(colunas_selecionadas) - 1) + [total_geral]
+
     descricao = "Por " + " + ".join(colunas_selecionadas)
 
     st.subheader(f"Resultado da Contagem ({descricao})")
     st.dataframe(tabela)
 
-    # NOVO: Input para nome do ficheiro
     nome_ficheiro = st.text_input("Nome do ficheiro Excel a exportar (sem extensão):", value="contagem_inteligente")
 
     output = BytesIO()
