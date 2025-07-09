@@ -216,7 +216,7 @@ if uploaded_file:
         st.warning("Seleciona pelo menos uma coluna para contagem.")
         st.stop()
 
-    st.markdown('<div class="custom-label">Seleciona como queres calcular a média:</div>', unsafe_allow_html=True)
+    st.markdown('<div class="custom-label">Seleciona como quer calcular a média:</div>', unsafe_allow_html=True)
     agregacao = st.selectbox(
         "",
         options=["Nenhuma", "Por Dia", "Por Mês", "Por Trimestre", "Por Semestre"]
