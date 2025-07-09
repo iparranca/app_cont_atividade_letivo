@@ -4,7 +4,7 @@ from io import BytesIO
 from openpyxl import Workbook
 
 st.set_page_config(page_title="Contagem", layout="wide")
-st.title("Exportar Contagens22")
+st.title("Exportar Contagens")
 
 # Estilo customizado
 st.markdown("""
