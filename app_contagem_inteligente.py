@@ -3,9 +3,6 @@ import pandas as pd
 from io import BytesIO
 from openpyxl import Workbook
 
-with st.spinner('Carregando app...'):
-    time.sleep(5)  # simula tempo de carga
-
 st.set_page_config(page_title="Contagem", layout="wide")
 st.title("Exportar Contagens")
 
